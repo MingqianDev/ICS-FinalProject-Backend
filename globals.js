@@ -1,7 +1,8 @@
 // Define an object to hold the global variables
 const globals = {
     longitude: 0,
-    latitude: 0
+    latitude: 0,
+    apiKey: 'dee7f9f89cf71e69d03cfc2d23e6dc69'
 }
 
 // Define a function to set a global variable
