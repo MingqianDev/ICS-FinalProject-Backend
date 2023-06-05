@@ -11,9 +11,9 @@ const io = require('socket.io')(server, {
 const PORT = process.env.PORT || 3000;
 
 const globals = require('./globals.js');
-const getWeatherData = require('./WeatherData/getWeatherData.js');
+const getWeatherData = require('./WeatherData/getCurrentWeatherData.js');
 const getCity = require('./WeatherData/getCity.js');
-
+const getDailyWeather = require('./WeatherData/getDailyWeatherData.js');
 io.on('connection', (socket) => {
     socket.on('locationData', (data)=>{
         globals.setGlobal('longitude', data.longitude);
@@ -21,6 +21,10 @@ io.on('connection', (socket) => {
         console.log(data.longitude, data.latitude);
         getWeatherData(socket);
         getCity(socket);
+    });
+
+    socket.on('getDailyWeatherData', ()=>{
+        getDailyWeather(socket);
     })
 })
 
