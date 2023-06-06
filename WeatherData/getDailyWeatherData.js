@@ -18,9 +18,9 @@ function getDailyWeather(socket) {
                     tempDay: day.temp.day,
                     tempEve: day.temp.eve,
                     tempNight: day.temp.night,
-                    tempMax: day.temp.max,
-                    tempMin: day.temp.min,
-                    description: day.weather[0].description,
+                    tempMax: day.temp.max.toFixed(0),
+                    tempMin: day.temp.min.toFixed(0),
+                    weather: day.weather[0].main,
                     icon: day.weather[0].icon,
                 };
             });

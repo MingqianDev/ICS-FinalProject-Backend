@@ -18,7 +18,7 @@ io.on('connection', (socket) => {
     socket.on('locationData', (data)=>{
         globals.setGlobal('longitude', data.longitude);
         globals.setGlobal('latitude', data.latitude);
-        console.log(data.longitude, data.latitude);
+        console.log(data.latitude, data.longitude);
         getWeatherData(socket);
         getCity(socket);
     });
