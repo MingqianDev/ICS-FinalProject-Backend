@@ -23,7 +23,7 @@ io.on('connection', (socket) => {
         getCity(socket);
     });
 
-    socket.on('getDailyWeatherData', ()=>{
+    socket.on('getWeatherData', ()=>{
         getDailyWeather(socket);
     })
 })

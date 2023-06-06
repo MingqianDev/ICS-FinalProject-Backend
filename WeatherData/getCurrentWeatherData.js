@@ -9,9 +9,10 @@ function getWeatherData(socket) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            const description = data.current.weather[0].description;
+            const weather = data.current.weather[0].main;
             const temperature = data.current.temp.toFixed(1); 
-            socket.emit('currentWeatherData', {description, temperature});
+            const icon = data.current.weather[0].icon;
+            socket.emit('currentWeatherData', {weather, temperature, icon});
             // document.querySelector('#description').textContent = description;
             // document.querySelector('#temperature').textContent = temperature + '°C';
         })
