@@ -6,7 +6,7 @@ const https = require('https');
 // const server = http.createServer(app);
 const server = https.createServer({
     key: fs.readFileSync('weatherpro.top-ssl-bundle/private.key.pem'),
-    cert: fs.readFileSync('weatherpro.top-ssl-bundle/OriginCertificate.pem')
+    cert: fs.readFileSync('weatherpro.top-ssl-bundle/domain.cert.pem')
 }, app);
 
 const PORT = 4000;
@@ -18,7 +18,6 @@ const getDailyWeather = require('./WeatherData/getDailyWeatherData.js');
 
 app.use(cors({
     origin: '*',
-    credentials: true,
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
@@ -48,4 +47,4 @@ app.post('/', async (req, res) => {
 
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-});
+});app.options('*', cors());
