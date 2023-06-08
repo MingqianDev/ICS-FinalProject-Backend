@@ -1,20 +1,18 @@
 const { getGlobal } = require("../globals.js");
 
-function getCity(socket) {
-    const latitude = getGlobal('latitude'),
-        longitude = getGlobal('longitude'),
-        apiKey = getGlobal('apiKey');
+async function getCity(latitude, longitude) {
+    const apiKey = getGlobal('apiKey');
     const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const city = data[0].name;
-            socket.emit('cityData', city);
-            // document.querySelector('#location').textContent = city;
-        })
-        .catch(error => {
-            console.log('Error fetching city data:', error);
-        });
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const city = data[0].name;
+        console.log(city);
+        return city;
+    } catch (error) {
+        console.log('Error fetching city data:', error);
+    }
 }
+
 module.exports = getCity;
