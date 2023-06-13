@@ -12,9 +12,9 @@ const server = https.createServer({
 const PORT = 4000;
 
 const globals = require('./globals.js');
-const getWeatherData = require('./WeatherData/getCurrentWeatherData.js');
+const getWeatherData = require('./WeatherData/getWeatherData.js');
 const getCity = require('./WeatherData/getCity.js');
-const getDailyWeather = require('./WeatherData/getDailyWeatherData.js');
+// const getDailyWeather = require('./WeatherData/getDailyWeatherData.js');
 
 app.use(cors({
     origin: '*',
@@ -35,13 +35,12 @@ app.post('/', async (req, res) => {
     globals.setGlobal('latitude', latitude);
 
     const city = await getCity(latitude, longitude);
-    const currentWeather = await getWeatherData();
-    const dailyWeather = await getDailyWeather();
+    const weatherData = await getWeatherData();
+    // const weatherData = await getDailyWeather();
 
     res.json({
         city,
-        currentWeather,
-        dailyWeather
+        weatherData
     });
 });
 

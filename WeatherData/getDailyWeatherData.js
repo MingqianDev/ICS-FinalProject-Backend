@@ -23,7 +23,7 @@ async function getDailyWeather() {
                 icon: day.weather[0].icon,
             };
         });
-
+        
         return forecastData;
 
     } catch (error) {
