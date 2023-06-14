@@ -12,7 +12,8 @@ async function getWeatherData() {
         const weather = data.current.weather[0].main;
         const temperature = data.current.temp.toFixed(1);
         const icon = data.current.weather[0].icon;
-        const dailyForecast = data.daily.slice(0, 7); // Get the forecast for the next 7 days
+        const hourlyForecast = data.hourly;
+        const dailyForecast = data.daily.slice(0, 8); // Get the forecast for the next 7 days
         const forecastData = dailyForecast.map((day) => {
             return {
                 date: new Date(day.dt * 1000).getDay(), // Convert Unix timestamp to weekdays
@@ -26,7 +27,15 @@ async function getWeatherData() {
                 icon: day.weather[0].icon,
             };
         });
-        return { weather, temperature, icon, forecastData};
+        const hourlyData = hourlyForecast.map((hour) => {
+            return {
+                hour: new Date(hour.dt * 1000).getHours(), // Convert Unix timestamp to weekdays
+                icon: hour.weather[0].icon,
+                temp: hour.temp,
+                pop: hour.pop
+            };
+        });
+        return { weather, temperature, icon, forecastData, hourlyData};
     } catch (error) {
         console.log('Error fetching weather data:', error);
     }
