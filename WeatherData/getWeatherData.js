@@ -12,7 +12,7 @@ async function getWeatherData() {
         const weather = data.current.weather[0].main;
         const temperature = data.current.temp.toFixed(1);
         const icon = data.current.weather[0].icon;
-        const hourlyForecast = data.hourly;
+        const hourlyForecast = data.hourly.slice(0, 24);
         const dailyForecast = data.daily.slice(0, 8); // Get the forecast for the next 7 days
         const forecastData = dailyForecast.map((day) => {
             return {
@@ -29,10 +29,10 @@ async function getWeatherData() {
         });
         const hourlyData = hourlyForecast.map((hour) => {
             return {
-                hour: new Date(hour.dt * 1000).getHours(), // Convert Unix timestamp to weekdays
+                hour: new Date(hour.dt * 1000).getHours(), // Convert Unix timestamp to hours
                 icon: hour.weather[0].icon,
-                temp: hour.temp,
-                pop: hour.pop
+                temp: hour.temp.toFixed(0),
+                pop: hour.pop  //precipitation probability
             };
         });
         return { weather, temperature, icon, forecastData, hourlyData};
